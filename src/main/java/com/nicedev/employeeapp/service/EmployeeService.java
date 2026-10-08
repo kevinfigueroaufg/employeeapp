@@ -15,5 +15,7 @@ public interface EmployeeService {
 
     EmployeeResponse update(Long id, EmployeeRequest request);
 
+    EmployeeResponse patch(Long id, EmployeeRequest request);
+
     void delete(Long id);
 }

@@ -17,5 +17,10 @@ public class EmployeeResponse {
     private String department;
 
     public EmployeeResponse(Long id, String name, String email, BigDecimal salary, String department) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.salary = salary;
+        this.department = department;
     }
 }

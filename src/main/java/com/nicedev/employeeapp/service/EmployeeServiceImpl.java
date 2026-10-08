@@ -76,6 +76,32 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
+    public EmployeeResponse patch(Long id, EmployeeRequest request) {
+
+        Employee employee = repository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+
+        if (request.getName() != null) {
+            employee.setName(request.getName());
+        }
+
+        if (request.getEmail() != null) {
+            employee.setEmail(request.getEmail());
+        }
+
+        if (request.getSalary() != null) {
+            employee.setSalary(request.getSalary());
+        }
+
+        if (request.getDepartment() != null) {
+            employee.setDepartment(request.getDepartment());
+        }
+
+        return toResponse(employee);
+    }
+
+    @Override
+    @Transactional
     public void delete(Long id) {
 
         if (!repository.existsById(id)) {

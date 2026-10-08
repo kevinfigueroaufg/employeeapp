@@ -52,6 +52,14 @@ public class EmployeeController {
                 service.update(id, request));
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<EmployeeResponse> patch(
+            @PathVariable Long id,
+            @RequestBody EmployeeRequest request) {
+
+        return ResponseEntity.ok(service.patch(id, request));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable Long id) {
