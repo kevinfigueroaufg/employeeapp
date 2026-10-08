@@ -1,5 +1,6 @@
 package com.nicedev.employeeapp.service;
 
+import com.nicedev.employeeapp.dto.EmployeeBonusResponse;
 import com.nicedev.employeeapp.dto.EmployeeRequest;
 import com.nicedev.employeeapp.dto.EmployeeResponse;
 import com.nicedev.employeeapp.entity.Employee;
@@ -8,6 +9,7 @@ import com.nicedev.employeeapp.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -109,6 +111,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         repository.deleteById(id);
+    }
+
+    @Override
+    public EmployeeBonusResponse calcularBono(Long employeeId) {
+
+        Employee employee = repository.findById(employeeId)
+                .orElseThrow(() -> new EmployeeNotFoundException(employeeId));
+
+        BigDecimal bono = repository.calcularBono(employeeId);
+
+        return EmployeeBonusResponse.builder()
+                .employeeId(employee.getId())
+                .salary(employee.getSalary())
+                .bonus(bono)
+                .build();
     }
 
     private EmployeeResponse toResponse(Employee e) {

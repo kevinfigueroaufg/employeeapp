@@ -1,5 +1,6 @@
 package com.nicedev.employeeapp.controller;
 
+import com.nicedev.employeeapp.dto.EmployeeBonusResponse;
 import com.nicedev.employeeapp.dto.EmployeeRequest;
 import com.nicedev.employeeapp.dto.EmployeeResponse;
 import com.nicedev.employeeapp.service.EmployeeService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -67,5 +69,14 @@ public class EmployeeController {
         service.delete(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/bonus")
+    public ResponseEntity<EmployeeBonusResponse> calcularBono(
+            @PathVariable Long id) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.calcularBono(id));
     }
 }
